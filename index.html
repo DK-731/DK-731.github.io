@@ -3,46 +3,411 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
+    <title>Daniel E. Kim | Portfolio</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&display=swap');
+
+      :root {
+        --primary: #4e5a65;
+        --soft: #b5c9d5;
+        --warm: #beb8b1;
+        --accent: #748a9e;
+        --muted: #aaaaaa;
+        --bg: #f2f4f3;
+        --card: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Albert Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--primary);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        background: linear-gradient(180deg, #b5c9d5 0%, #eef1ef 26%, #f7f8f6 50%, #ffffff 70%, #eef1ef 100%);
+      }
+
+      body::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        left: -10%;
+        width: 120%;
+        height: 420px;
+        background: linear-gradient(180deg, rgba(116, 138, 158, 0.24), rgba(190, 184, 177, 0.05));
+        clip-path: polygon(0 72%, 12% 58%, 22% 68%, 33% 52%, 42% 66%, 54% 48%, 64% 60%, 76% 44%, 88% 58%, 100% 50%, 100% 0, 0 0);
+        z-index: -2;
+      }
+
+      body::after {
+        content: '';
+        position: absolute;
+        top: 180px;
+        left: -8%;
+        width: 116%;
+        height: 260px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.3));
+        clip-path: polygon(0 64%, 14% 46%, 28% 58%, 40% 42%, 52% 56%, 66% 40%, 80% 54%, 100% 48%, 100% 100%, 0 100%);
+        z-index: -1;
+      }
+
+      .page-wrapper {
+        position: relative;
+        z-index: 1;
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 44px;
+      }
+
+      header {
+        padding: 36px 28px;
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(116, 138, 158, 0.14), rgba(190, 184, 177, 0.08));
+        border: 1px solid rgba(78, 90, 101, 0.15);
+        box-shadow: 0 20px 45px rgba(78, 90, 101, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: '';
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(181, 201, 213, 0.26);
+        top: -60px;
+        right: -60px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: clamp(2.75rem, 5vw, 4.2rem);
+        letter-spacing: -0.04em;
+      }
+
+      .subheading {
+        margin: 18px 0 0;
+        font-size: 1.05rem;
+        color: var(--primary);
+        max-width: 780px;
+      }
+
+      .contact-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 24px;
+        color: var(--primary);
+        font-weight: 500;
+      }
+
+      .contact-summary span {
+        background: rgba(190, 184, 177, 0.22);
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(78, 90, 101, 0.15);
+      }
+
+      nav {
+        margin: 30px 0 0;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 10px 14px;
+        border-radius: 999px;
+        transition: background 0.2s ease;
+      }
+
+      nav a:hover,
+      nav a:focus-visible {
+        background: rgba(116, 138, 158, 0.12);
+      }
+
+      main {
+        display: grid;
+        gap: 28px;
+      }
+
+      section {
+        padding: 28px;
+        background: var(--card);
+        border-radius: 24px;
+        border: 1px solid rgba(78, 90, 101, 0.12);
+        box-shadow: 0 18px 30px rgba(78, 90, 101, 0.06);
+      }
+
+      section h2 {
+        margin: 0;
+        font-size: 1.75rem;
+      }
+
+      .section-text,
+      .section-list li,
+      .project-card p,
+      .contact-card p {
+        color: #4f5f69;
+      }
+
+      .section-text {
+        margin-top: 16px;
+        max-width: 740px;
+        line-height: 1.8;
+      }
+
+      .section-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      .section-list li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .section-list li::before {
+        content: '\2022';
+        color: var(--accent);
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+
+      .skills-grid,
+      .project-grid,
+      .contact-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        margin-top: 20px;
+      }
+
+      .skill-card,
+      .project-card,
+      .contact-card {
+        padding: 22px;
+        border-radius: 20px;
+        background: rgba(181, 201, 213, 0.12);
+        border: 1px solid rgba(116, 138, 158, 0.18);
+      }
+
+      .skill-card h3,
+      .project-card h3,
+      .contact-card h3 {
+        margin: 0 0 12px;
+        font-size: 1.15rem;
+      }
+
+      .skill-card p,
+      .project-card p,
+      .contact-card p {
+        margin: 0;
+        line-height: 1.7;
+      }
+
+      .skill-card ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+
+      .skill-card li::before {
+        content: '\25B8';
+        color: var(--accent);
+        margin-right: 8px;
+      }
+
+      .contact-card a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .contact-card a:hover,
+      .contact-card a:focus-visible {
+        text-decoration: underline;
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted);
+        padding-top: 8px;
+      }
+
+      @media (max-width: 720px) {
+        header,
+        section {
+          padding: 24px;
+        }
+
+        nav ul {
+          justify-content: center;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <h1>Daniel Kim</h1>
-      <p>Web developer &amp; designer building simple, modern experiences.</p>
-    </header>
-
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-
-    <main>
-      <section id="about">
-        <h2>About Me</h2>
-        <p>Placeholder text about your skills, background, and interests.</p>
-      </section>
-
-      <section id="work">
-        <h2>Featured Projects</h2>
-        <p>Placeholder text describing a few highlighted projects or achievements.</p>
-        <div>
-          <a href="https://example.com/project-1"><button type="button">Project One</button></a>
-          <a href="https://example.com/project-2"><button type="button">Project Two</button></a>
-          <a href="https://example.com/project-3"><button type="button">Project Three</button></a>
+    <div class="page-wrapper">
+      <header>
+        <h1>Daniel E. Kim</h1>
+        <p class="subheading">
+          I am a high school engineering student from Los Angeles who enjoys
+          building outdoors-inspired technology projects, leading volunteer
+          teams, and designing solutions that help others discover better school
+          and research paths.
+        </p>
+        <div class="contact-summary">
+          <span>Los Angeles, CA</span>
+          <span>(562) 955-0146</span>
+          <span>Email: <a href="mailto:daniel.kim@example.com">daniel.kim@example.com</a></span>
         </div>
-      </section>
+      </header>
 
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>Placeholder text for how visitors can reach you.</p>
-      </section>
-    </main>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-    <footer>
-      <p>© 2026 Daniel Kim. All rights reserved.</p>
-    </footer>
+      <main>
+        <section id="about">
+          <h2>About</h2>
+          <p class="section-text">
+            I combine engineering, leadership, and technology with hands-on
+            learning and community service. I have experience in robotics,
+            electrical design, and mentoring younger students. I am actively
+            seeking professors and mentors to support renewable energy research
+            while I continue developing a website that helps high school
+            students select classes with a personality-guided course planner.
+          </p>
+        </section>
+
+        <section id="skills">
+          <h2>Skills</h2>
+          <div class="skills-grid">
+            <article class="skill-card">
+              <h3>Engineering</h3>
+              <p>
+                Robotics, CAD prototyping, mechanical design, circuit building,
+                and working on a gravity battery model.
+              </p>
+            </article>
+            <article class="skill-card">
+              <h3>Leadership</h3>
+              <p>
+                Project management, club operations, volunteer coordination, and
+                student mentorship.
+              </p>
+            </article>
+            <article class="skill-card">
+              <h3>Technology</h3>
+              <p>
+                Web development concepts, Chrome extension design, coding jam
+                experience, and digital accessibility improvements.
+              </p>
+            </article>
+            <article class="skill-card">
+              <h3>Volunteering</h3>
+              <p>
+                Community service, youth tutoring, event coordination, and
+                support roles in church and school outreach programs.
+              </p>
+            </article>
+            <article class="skill-card">
+              <h3>Research & Design</h3>
+              <p>
+                Renewable energy interest, technical exploration, and planning a
+                course recommendation website for high school students.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="projects">
+          <h2>Projects</h2>
+          <p class="section-text">
+            These are placeholder cards for projects I will outline soon. They
+            will include the coding jam win, the renewable energy prototype, and
+            the student class-planner website concept.
+          </p>
+          <div class="project-grid">
+            <article class="project-card">
+              <h3>Accessibility Chrome Extension</h3>
+              <p>
+                Placeholder for the web accessibility tool that improves text
+                spacing and color contrast for dyslexic and visually impaired
+                users.
+              </p>
+            </article>
+            <article class="project-card">
+              <h3>Gravity Battery Prototype</h3>
+              <p>
+                Placeholder for the U=mgh gravity battery design and CAD-modeled
+                VEX hardware project.
+              </p>
+            </article>
+            <article class="project-card">
+              <h3>Student Class Planner</h3>
+              <p>
+                Placeholder for the course recommendation website that helps
+                students choose classes based on interests, strengths, and goals.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact">
+          <h2>Contact</h2>
+          <div class="contact-grid">
+            <article class="contact-card">
+              <h3>Reach Out</h3>
+              <p>Phone: (562) 955-0146</p>
+              <p>Location: Los Angeles, CA</p>
+              <p>Email: <a href="mailto:daniel.kim@example.com">daniel.kim@example.com</a></p>
+            </article>
+            <article class="contact-card">
+              <h3>Looking For</h3>
+              <p>
+                I am looking for opportunities to collaborate with professors
+                and mentors on renewable energy research, engineering design,
+                and student-focused technology projects.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>� 2026 Daniel E. Kim.</p>
+      </footer>
+    </div>
   </body>
 </html>
